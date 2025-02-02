@@ -1,17 +1,25 @@
-"""
-Main Application for A/B Testing with Machine Learning Models.
-
-This app allows users to select a user ID, generate personalized movie
-recommendations using different algorithms, and display results in an interactive
-Streamlit interface.
-"""
-
 import pandas as pd
 import streamlit as st
+import logging
 from utils import descriptive_info, sample_group
 from recommend_a import route_a
 from recommend_b import route_b
 
+# Set up logging configuration
+logging.basicConfig(
+    filename='./src/logs/app.log',  # Log file location
+    level=logging.INFO,  # Log level
+    format='%(asctime)s - %(levelname)s - %(message)s'
+)
+
+def log_route_selection(group):
+    """
+    Log the route selection for A/B testing.
+
+    Args:
+        group (str): Selected group for the user (A or B).
+    """
+    logging.info(f"Route selected: {group}")
 
 if __name__ == "__main__":
     st.title("A/B Testing with Machine Learning Models")
@@ -26,6 +34,10 @@ if __name__ == "__main__":
 
     if st.button("Get recs"):
         group = sample_group()
+        
+        # Log the route selection (A or B)
+        log_route_selection(group)
+        
         # Route A
         if group == 'A':
             route_a(selected_id)

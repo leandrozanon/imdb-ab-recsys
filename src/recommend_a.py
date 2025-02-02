@@ -71,7 +71,8 @@ def train_model_a(ratings_df):
     user_movie_matrix = dataprep_model_a(ratings_df)
     model = NearestNeighbors(n_neighbors=2, algorithm='brute', metric='cosine')
     model.fit(user_movie_matrix)
-    joblib.dump(model, '../models/model_a.pkl')
+    joblib.dump(model, './src/models/model_a.pkl')
+    return model
 
 def predict_model_a(model, user_id):
     """
@@ -109,11 +110,13 @@ def route_a(selected_id):
         model = load_model_a()
         recs = predict_model_a(model, selected_id)
         show_carousel(recs)  
+        st.write(f"Recommended Movies{recs}")
     except:
-        st.write("Fail load pretrained model, training model...")
+        st.write("Failed to load pretrained model B. Training model...")
         ratings_df = load_data()
-        train_model_a(ratings_df)
+        model = train_model_a(ratings_df)
         st.write("Model A trained and load successfully!")
-        model = load_model_a()
+
         recs = predict_model_a(model, selected_id)
+        st.write(f"Recommended Movies{recs}")
         show_carousel(recs)
