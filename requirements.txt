@@ -1,0 +1,6 @@
+imdbpy
+joblib
+requests
+scikit-learn
+streamlit
+watchdog
