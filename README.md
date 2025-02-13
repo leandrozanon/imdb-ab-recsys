@@ -1,7 +1,7 @@
 
 # Streamlit Movies App
 
-This repository contains the code for a Streamlit app that displays movie recommendations.
+This repository contains the code for a Streamlit app that displays movie recommendations. Data from https://grouplens.org/datasets/movielens/
 
 ## How to Run
 
